@@ -11,12 +11,13 @@ int the_time = 0;
 
 void blink()
 {
-	int time_since =  micros() - the_time;
+        hw_timer_arm(30000);
 	digitalWrite(LED_PIN, state);
 	state = !state;
-        the_time = micros();
+        int new_time = micros();
+	int time_since =  new_time - the_time;
+        the_time = new_time;
         Serial.println(time_since);
-        hw_timer_arm(30000-450);
 }
 
 void init()
@@ -24,8 +25,8 @@ void init()
     Serial.begin(115200);
     pinMode(LED_PIN, OUTPUT);
     hw_timer_set_func(blink);
-    hw_timer_init(NMI_SOURCE, 1);
+    hw_timer_init(FRC1_SOURCE, 1);
     the_time = micros();
-    hw_timer_arm(30000-450);// seems to equate to 30000 in real terms
+    hw_timer_arm(30000);// seems to equate to 30000 in real terms
 
 }
