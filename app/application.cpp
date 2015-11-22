@@ -9,7 +9,7 @@ bool state = true;
 
 int the_time = 0;
 
-void blink()
+void IRAM_ATTR blink()
 {
         hw_timer_arm(90000);
 	digitalWrite(LED_PIN, state);
