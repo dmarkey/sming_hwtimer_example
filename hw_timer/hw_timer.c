@@ -46,7 +46,7 @@ in non autoload mode:
                         10 ~ 0x7fffff;
 * Returns      : NONE
 *******************************************************************************/
-extern void  hw_timer_arm(u32 val)
+extern void IRAM_ATTR hw_timer_arm(u32 val)
 {
     RTC_REG_WRITE(FRC1_LOAD_ADDRESS, US_TO_RTC_TIMER_TICKS(val));
 }
@@ -64,7 +64,7 @@ extern void  hw_timer_set_func(void (* user_hw_timer_cb_set)(void))
     user_hw_timer_cb = user_hw_timer_cb_set;
 }
 
-static void  hw_timer_isr_cb(void)
+static void IRAM_ATTR hw_timer_isr_cb(void)
 {
     if (user_hw_timer_cb != NULL) {
         (*(user_hw_timer_cb))();
